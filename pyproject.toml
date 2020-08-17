@@ -2,7 +2,7 @@
 name = "pool-tr"
 version = "0.1.0"
 description = "machine translate via a pool"
-authors = ["ffreemt]
+authors = ["ffreemt"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/ffreemt/pool-transalte-free"
