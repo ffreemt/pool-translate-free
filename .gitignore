@@ -5,3 +5,4 @@ pool_tr\__pycache__
 tests\__pycache__
 *.sqlite
 coloredlogs_try.py
+tests/__pycache__

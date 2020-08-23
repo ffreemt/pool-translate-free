@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.7"
 google-tr-free = "^0.0.6"
 wrapt-timeout-decorator = "^1.3.1"
 logzero = "^1.5.0"
@@ -29,12 +29,13 @@ coloredlogs = "^14.0"
 promt-tr-free = "^0.0.2"
 qq-tr-free = "^0.0.2"
 youdao-tr-free = "^0.0.7"
-python-levenshtein = {path = "whl/python_Levenshtein-0.12.0-cp36-cp36m-win_amd64.whl"}
+python-levenshtein = {path = "whl/python_Levenshtein-0.12.0-cp37-cp37m-win_amd64.whl"}
 cchardet = "^2.1.6"
 sogou-tr-free = "^0.0.10"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+ipython = "^7.17.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
