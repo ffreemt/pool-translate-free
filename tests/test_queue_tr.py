@@ -102,8 +102,8 @@ def test_systran():
 """
 
 
-def test_omni():
-    """ test omni """
+def test_omni_en2zh():
+    """ test_omni_en2zh """
     # from random_tail import tandom_tail
 
     # service = 'omni_tr'
@@ -123,16 +123,39 @@ def test_omni():
     # popleft = 0: pop from right
     args = [text, from_lang, to_lang, 0]
     res, service, time_ = queue_tr(*args)
-    _ = """
-    with capsys.disabled():
-        print(args, res, queue_tr.service, )
-        logger.info('capsys.disabled() res: %s', res)
-    """
+
     # print('print res: ', res)
     logger.info("res: %s", res)
     numb = re.search(r"\d+", text).group()
     assert "测试" in res or numb in res
 
+
+def test_omni_zh2en2():
+    """ test_omni_zh2en2 """
+    # from random_tail import tandom_tail
+
+    # service = 'omni_tr'
+    service = ""
+    while 1:
+        service = Q_SERVICES.pop()
+        if service == "omni_tr":
+            Q_SERVICES.append(service)
+            break
+        # Q_SERVICES.insert(0, service)
+        Q_SERVICES.appendleft(service)
+    logger.info(" service: %s", service)
+
+    text = random_tail(lang="zh")
+    from_lang = "zh"
+    to_lang = "en"
+    # popleft = 0: pop from right
+    args = [text, from_lang, to_lang, False]
+    res, service, time_ = queue_tr(*args)
+
+    # print('print res: ', res)
+    logger.info("res: %s", res)
+    numb = re.search(r"\d+", text).group()
+    assert "test" in res.lower() or numb in res
 
 def test_qq():
     """ test qq """
@@ -223,6 +246,34 @@ def test_sogou():
     numb = re.search(r"\d+", text).group()
     assert "测试" in res or numb in res
 
+
+def test_promt():
+    """ test promt """
+    # from random_tail import tandom_tail
+
+    service_ = "google_tr"
+    service = ""
+    service_ = "sogou_tr"
+    service_ = "promt_tr"
+    while 1:
+        service = Q_SERVICES.pop()
+        if service == service_:
+            Q_SERVICES.append(service)
+            break
+        Q_SERVICES.insert(0, service)
+    logger.info(" service: %s", service)
+
+    text = random_tail()
+    from_lang = "en"
+    to_lang = "zh"
+    # popleft = 0: pop from right
+    args = [text, from_lang, to_lang, 0]
+    res, service, time_ = queue_tr(*args)
+
+    # print('print res: ', res)
+    logger.info("res: %s", res)
+    numb = re.search(r"\d+", text).group()
+    assert "测试" in res or numb in res
 
 def test_baidu():
     """ test baidu. """

@@ -49,10 +49,18 @@ def pool_tr(
         sents: List[str],
         # services: List[str] = None,
         max_workers: Optional[int] = -1,
+        from_lang: str = "auto",
+        to_lang: str = "zh",
         timeout: float = 100,
 ) -> List[Any]:
     # fmt: on
-    """ translate sents to English """
+    """ translate sents.
+
+        max_workers: Optional[int] = 10
+        from_lang: str = "zh"
+        to_lang: str = "en"
+        timeout: float = 100
+    """
 
     _ = """
     if services is None:
@@ -81,8 +89,10 @@ def pool_tr(
         for elm in batch:
             sent, idx = elm
             # queue_tr => res, service
-            args = [queue_tr, sent, "zh", "en"]  # type: List[Any]
-            fut_dict = {**fut_dict, **{pool_exec.submit(*args): idx}}
+            args = [queue_tr, sent, from_lang, to_lang]  # type: List[Any]
+            # fut_dict = {**fut_dict, **{pool_exec.submit(*args): idx}}
+            # way faster
+            fut_dict.update({pool_exec.submit(*args): idx})
 
         # fut_dict: dict {(res, service): idx}
         # collect result if available, or send sents back to q_sents
@@ -203,7 +213,7 @@ def main():
     with report_time(" sents "):
         try:
             # res = pool_tr(sents[:50], timeout=150)
-            res = pool_tr(sents, timeout=150)
+            res = pool_tr(sents, from_lang='zh', to_lang="en", timeout=150)
         except Exception as exc:
             pprint(exc)
             res = ""
